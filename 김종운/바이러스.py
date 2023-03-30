@@ -10,16 +10,18 @@ def BFS(V):
         V = queue.popleft()
         for i in range(computerCount):
             if linkedList[V][i] == 1 and visited_BFS[i] == 0:
-                queue.append(i)
+                queue.append(i) # JS에서의 push
                 visited_BFS[i] = 1
                 count += 1
     print(count)
 
 
-computerCount = int(input())
-link = int(input())
+computerCount = int(input())  # 컴퓨터 수
+link = int(input())  # 간선의 개수
+
 linkedList = [[0 for _ in range(computerCount)]
               for _ in range(computerCount)]
+
 visited_BFS = [0] * (computerCount)
 
 for i in range(link):
