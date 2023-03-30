@@ -4,11 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // Linux
         {
-            "type": "chrome",
+            "name": "Launch Chrome",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "d:\\algorithmStudy\\최윤서\\index.html"
+            "type": "chrome",
+            "file": "//home//ywest1280//Repo//algorithmStudy//최윤서//index.html"
         }
+        // Windows
+        // {
+        //     "type": "chrome",
+        //     "request": "launch",
+        //     "name": "Open index.html",
+        //     "file": "d:\\algorithmStudy\\최윤서\\index.html"
+        // }
     ]
 }
