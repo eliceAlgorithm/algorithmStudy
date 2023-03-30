@@ -8,8 +8,8 @@ const card = input[1].trim().split(" ").map(element=> {return parseInt(element)}
 */
 
 // VSCode 연습 풀이용
-const n = 10;
-const card = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
+const n = 4;
+const card = [1, 5, 6, 7];
 
 //풀이
 let dp = new Array(n);

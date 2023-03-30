@@ -1,0 +1,11 @@
+function solution(numbers) {
+  let number = numbers.split("");
+  let result = [];
+  for (let i = 0; i < number.length; i++) {
+    for (let j = 0; j < number.length; i++) {
+      if (j !== i) {
+        result[i].push(number[i], number[j]);
+      }
+    }
+  }
+}
