@@ -1,0 +1,93 @@
+function solution(numbers, target) {
+    let answer = 0;
+    
+    // 트리 생성
+    let plusTree = new Node(numbers[0]*(+1), null, null);
+    let minusTree = new Node(numbers[0]*(-1), null, null);
+    // plusTree
+    treeGenerator(plusTree, numbers.slice(1));
+    // minusTree
+    treeGenerator(minusTree, numbers.slice(1));
+    
+    // DFS 탐색
+    const dfsPlusTree = new TreeSearch(plusTree, target);
+    const dfsMinusTree = new TreeSearch(minusTree, target);
+    
+    answer = dfsPlusTree.getAnswer() + dfsMinusTree.getAnswer();
+    
+    return answer;
+}
+
+// 이진 트리 구조의 노드
+class Node {
+    data;
+    leftNode;
+    rightNode;
+    
+    constructor(data, leftNode, rightNode) {
+        this.data = data;
+        this.leftNode = leftNode;
+        this.rightNode = rightNode;
+    }
+    
+}
+
+// 이 함수는 자식 노드를 numbers값에 맞추어 생성해줌
+function treeGenerator(tree, numbers) {
+    const node = tree;
+
+    if(node.leftNode === null && node.rightNode === null) {
+        node.leftNode = new Node(numbers[0] * (+1), null, null);
+        node.rightNode = new Node(numbers[0] * (-1), null, null);
+    }
+
+    // DFS 형식으로 그래프 생성
+    if(numbers.length !== 1) {
+        treeGenerator(node.leftNode, numbers.slice(1));
+        treeGenerator(node.rightNode, numbers.slice(1));
+    }
+}
+
+// 전역 변수를 선언하지 않고, 함수에서 사용될 공통된 값을 사용하기 위해 클래스로 작성함.
+class TreeSearch {
+    answer = 0;
+    target = 0;
+    calcStack = [];
+    
+    constructor(tree, target) {
+        this.target = target;
+        this.treeSearch(tree);
+    }
+    
+    // 마지막 깊이에서 target과 연산결과가 같은지 판단함
+    treeSearch(tree) {
+        // 스택에 노드 값 넣기
+        this.calcStack.push(tree.data);
+        // console.log(this.calcStack);
+
+        // 마지막 깊이에서만 연산 수행
+        if(tree.leftNode === null && tree.rightNode === null) {
+            // 연산
+            const result = this.calcStack.reduce((sum, element)=> {return sum + element}, 0);
+            if (result === this.target) {
+                this.answer ++;
+                // console.log("정답!");
+            }
+            // 스택 비우기
+            this.calcStack.pop();
+            return;
+        }
+        
+        this.treeSearch(tree.leftNode);
+        this.treeSearch(tree.rightNode);
+
+        // 스택 비우기
+        this.calcStack.pop();
+    }
+    
+    getAnswer() {
+        return this.answer;
+    }
+} 
+
+console.log(`answer : ${solution([4,1,2,1], 4)}`);

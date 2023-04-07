@@ -1,0 +1,41 @@
+function solution(n, computers) {
+    var answer = 0;
+
+    answer = dfs(n, computers);
+
+    return answer;
+}
+
+function dfs(n, graph) {
+  // visited : 노드 방문 여부, stack : 인접노드 탐색, counter : 새로운 그래프를 탐색할때마다 증가
+  let visited = Array.from({length: n}, () => false);
+  let stack = [];
+  let counter = 0;
+
+  // 모든 노드 탐색
+  for(let i in graph) {
+    // 방문되지 않은 노드만 검사. 같은 그래프의 노드는 DFS로 인해 이미 탐색되었음.
+    if(!visited[i]) {
+      counter ++;
+      // DFS
+      stack.push(i)
+      // stack이 비워질 때 까지 수행
+      while(stack.length > 0) {
+        let v = stack.pop();
+        if(!visited[v]) {
+          visited[v] = true;
+          // v의 인접 행렬을 검사하며, 1. 인접하고 2. 방문하지않은 노드를 stack에 추가한다.
+          for(let w in graph[v]) {
+            if(graph[v][w] === 1 && !visited[w])
+              stack.push(w);
+          }
+        }
+      }
+    }
+  }
+
+  return counter;
+}
+
+console.log(solution(3, [[1,1,0],[1,1,0],[0,0,1]]));
+console.log(solution(3, [[1,1,0],[1,1,1],[0,1,1]]));
